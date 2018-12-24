@@ -1,5 +1,5 @@
-`npm start`
+`npm install`
 
-`npm run`
+`npm start`
 
 go to `localhost:3000`

@@ -128,7 +128,28 @@ export function atLeastOneCaseProbs (_probArray) {
   return atLeastOne;
 }
 
-
+export function dragonIm (_dragonComposed) {
+  const allCodes = [];
+  for (let i = 0; i < 10; ++i) {
+    for (let j = 0; j < 4; ++j) {
+      const bodyIdx = i;
+      const dragonTypeIdx = _dragonComposed[i][j][0];
+      const geneVariatyIdx = _dragonComposed[i][j][1];
+      const geneLevel = _dragonComposed[i][j][2];
+      const isDominant = _dragonComposed[i][j][3];
+      const item = {
+        bodyPart: BODY_PARTS[bodyIdx],
+        dragonType: DRAGON_TYPES[dragonTypeIdx],
+        geneVariaty: GENE_VA[dragonTypeIdx][geneVariatyIdx],
+        geneVariatyIdx,
+        geneLevel,
+        isDominant
+      };
+       allCodes.push(item);
+    }
+  }
+  return allCodes;
+}
 
 // export function getProbs(_probArray) {
 //   let probsArray = [];

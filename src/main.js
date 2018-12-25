@@ -13,7 +13,7 @@ export function breed(_mom, _dad) {
 
 
   return {
-    arrayOfProbs,
+    probabilityOfRaresPerBodyPart,
     allPartsProob,
     atLeastOnePartProb
   }

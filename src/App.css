@@ -1,6 +1,8 @@
 .App {
   text-align: center;
-  padding: 10vw;
+  padding-left: 25vw;
+  padding-right: 25vw;
+  padding-top: 10vw
 }
 
 .Inputs {

@@ -2,7 +2,9 @@
   "name": "breed-",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
+    "web3": "1.0.0-beta.36",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-scripts": "2.1.1",

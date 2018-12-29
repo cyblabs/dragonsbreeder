@@ -1,4 +1,4 @@
-import {parse, getSumGenes, getDragonBodyPartsCases, collectRareActiveGenesPerBodyPart, getProbabilityPerBodyPart, getProbArray, getAllCasesProbs, atLeastOneCaseProbs, getGenome} from './core.js';
+import {parse, getSumGenes, getDragonBodyPartsCases, collectRareActiveGenesPerBodyPart, getProbabilityPerBodyPart, getProbArray, getAllCasesProbs, atLeastOneCaseProbs, collectRareActiveGenesInBodyPart, getRareActiveGenes} from './core.js';
 
 export function breed(_mom, _dad) {
 
@@ -14,6 +14,12 @@ export function breed(_mom, _dad) {
 
 
   return {
+    momComposed,
+    dadComposed,
+    sumOfGenes,
+    allCasesOfNewDragon,
+    rareActiveCases,
+    arrayOfProbs,
     probabilityOfRaresPerBodyPart,
     allPartsProbs,
     atLeastOnePartProb

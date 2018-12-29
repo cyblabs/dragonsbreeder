@@ -19,6 +19,8 @@ export function getGenome (dragonId) {
       return contract.methods.getParsedGenome(dragonId).call(options)
     })
     .then((parsedGenome) => {
+      console.log("parsedGenome");
+      console.log(parsedGenome);
       resolve(parsedGenome);
     });
   });
@@ -35,7 +37,7 @@ export function parse (_codes) {
       const slot = [];
       for (let k = 0; k < 4; k++) {
         const indexStart = (i * 4 + j) * 4;
-        slot[k] = codes[indexStart + k];
+        slot[k] = parseInt(codes[indexStart + k]);
       }
       geneSlot[j] = slot;
     }
@@ -86,38 +88,32 @@ export function getDragonBodyPartsCases (_sumGenes) {
 } // return *dragonBodyPartsCases* (10)(16)(4)(4)
 
 
-
 export function getRareActiveGenes (_case) {
-  console.log(_case)
-  let rareActiveGenes = [];
-  const temp = [];
-  if (_case[0][3] === 1) {
-    if (_case[0][1] > 4) {
-     rareActiveGenes = temp.concat(_case);
-    }
-  } else if (_case[1][3] === 1) {
-    if (_case[1][1] > 4) {
-     rareActiveGenes = temp.concat(_case);
-    }
-  } else if (_case[0][1] > 4) {
-     rareActiveGenes = temp.concat(_case);
+  let getActiveGenes = 0;
+  if (_case[0][3] === 1 && _case[0][1] > 4) {
+    getActiveGenes =  _case;
+  } else if (_case[1][3] === 1 && _case[1][1] > 4 && _case[0][3] === 0) {
+    getActiveGenes =  _case;
+  } else if (_case[0][3] === 0 && _case[0][1] > 4 && _case[1][3] === 0) {
+    getActiveGenes =  _case;
   }
-  console.log(rareActiveGenes)
-  return rareActiveGenes;
+    return getActiveGenes;
 }
 
 export function collectRareActiveGenesInBodyPart (_cases) {
   const raresCollected = [];
   for (let i = 0; i < 16; i++) {
-    if (getRareActiveGenes(_cases[i]).length !== 0) {raresCollected.push(getRareActiveGenes(_cases[i]))}
+    if (getRareActiveGenes(_cases[i]) !== 0) {
+      raresCollected.push(getRareActiveGenes(_cases[i]))
+    }
   }
   return raresCollected;
 }
 
 export function collectRareActiveGenesPerBodyPart (_dragonCases) {
-  const rareActivePerBodyPart = [];
+  let rareActivePerBodyPart = [];
   for (let i = 0; i < 10; i++) {
-    rareActivePerBodyPart.push(collectRareActiveGenesInBodyPart(_dragonCases[i]))
+    rareActivePerBodyPart.push(collectRareActiveGenesInBodyPart(_dragonCases[i]));
   }
   return rareActivePerBodyPart;
 }
@@ -125,7 +121,7 @@ export function collectRareActiveGenesPerBodyPart (_dragonCases) {
 export function getProbabilityPerBodyPart (_rareActivePerBodyPart) {
   let bodyPartActiveRareProbability = [];
   for (let i = 0; i < 10; i++) {
-    bodyPartActiveRareProbability[i] = _rareActivePerBodyPart[i].length/16;
+    bodyPartActiveRareProbability[i] = (_rareActivePerBodyPart[i].length)/16;
   }
   return bodyPartActiveRareProbability;
 }
@@ -141,12 +137,13 @@ export function getProbArray (_bodyPartActiveRareProbability) {
 }
 
 export function getAllCasesProbs (_probArray) {
-  let allCases = _probArray.reduce((a,b)=>a*b)
+  let allCases = [1];
+  allCases = _probArray.reduce((a,b)=>a*b)
   return allCases;
 }
 
 export function atLeastOneCaseProbs (_probArray) {
-  let revArray = [];
+  let revArray = [1];
   for (let i = 0; i < _probArray.length; i++) {
     revArray[i] = 1 - _probArray[i]
   }
